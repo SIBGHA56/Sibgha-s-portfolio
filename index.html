@@ -1,0 +1,1282 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Sibgha Khalid — Portfolio</title>
+<link href="https://fonts.googleapis.com/css2?family=Space+Mono:ital,wght@0,400;0,700;1,400&family=Bebas+Neue&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --black: #050505;
+    --deep: #0a0a0a;
+    --card: #111111;
+    --border: #1e1e1e;
+    --gold: #c9a84c;
+    --gold-light: #e8c96a;
+    --teal: #00d4aa;
+    --white: #f0ede8;
+    --muted: #666;
+    --accent: #ff6b35;
+  }
+
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+
+  html { scroll-behavior: smooth; }
+
+  body {
+    background: var(--black);
+    color: var(--white);
+    font-family: 'DM Sans', sans-serif;
+    overflow-x: hidden;
+    cursor: none;
+  }
+
+  /* ─── CUSTOM CURSOR ─── */
+  .cursor {
+    width: 12px; height: 12px;
+    background: var(--gold);
+    border-radius: 50%;
+    position: fixed; top: 0; left: 0;
+    pointer-events: none; z-index: 9999;
+    transition: transform 0.15s ease;
+    mix-blend-mode: difference;
+  }
+  .cursor-trail {
+    width: 36px; height: 36px;
+    border: 1px solid var(--gold);
+    border-radius: 50%;
+    position: fixed; top: 0; left: 0;
+    pointer-events: none; z-index: 9998;
+    transition: all 0.3s ease;
+    opacity: 0.5;
+  }
+
+  /* ─── NOISE OVERLAY ─── */
+  body::before {
+    content: '';
+    position: fixed; inset: 0;
+    background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='0.04'/%3E%3C/svg%3E");
+    pointer-events: none; z-index: 0; opacity: 0.4;
+  }
+
+  /* ─── NAV ─── */
+  nav {
+    position: fixed; top: 0; left: 0; right: 0;
+    padding: 22px 48px;
+    display: flex; justify-content: space-between; align-items: center;
+    z-index: 100;
+    background: linear-gradient(to bottom, rgba(5,5,5,0.95), transparent);
+    backdrop-filter: blur(4px);
+  }
+  .nav-logo {
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: 26px; letter-spacing: 4px;
+    color: var(--gold);
+  }
+  .nav-links { display: flex; gap: 36px; list-style: none; }
+  .nav-links a {
+    font-family: 'Space Mono', monospace;
+    font-size: 11px; letter-spacing: 2px; text-transform: uppercase;
+    color: var(--muted); text-decoration: none;
+    transition: color 0.3s;
+  }
+  .nav-links a:hover { color: var(--gold); }
+
+  /* ─── HERO ─── */
+  #hero {
+    min-height: 100vh;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    align-items: center;
+    padding: 120px 72px 80px;
+    position: relative;
+    overflow: hidden;
+  }
+  .hero-bg-grid {
+    position: absolute; inset: 0;
+    background-image:
+      linear-gradient(rgba(201,168,76,0.04) 1px, transparent 1px),
+      linear-gradient(90deg, rgba(201,168,76,0.04) 1px, transparent 1px);
+    background-size: 60px 60px;
+  }
+  .hero-bg-radial {
+    position: absolute; inset: 0;
+    background: radial-gradient(ellipse 60% 80% at 70% 50%, rgba(0,212,170,0.06) 0%, transparent 70%);
+  }
+  .hero-content { position: relative; z-index: 2; }
+  .hero-eyebrow {
+    font-family: 'Space Mono', monospace;
+    font-size: 11px; letter-spacing: 4px; text-transform: uppercase;
+    color: var(--teal); margin-bottom: 20px;
+    display: flex; align-items: center; gap: 12px;
+  }
+  .hero-eyebrow::before {
+    content: ''; width: 40px; height: 1px; background: var(--teal);
+  }
+  .hero-name {
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: clamp(64px, 9vw, 130px);
+    line-height: 0.9;
+    background: linear-gradient(135deg, var(--white) 0%, var(--gold) 60%, var(--gold-light) 100%);
+    -webkit-background-clip: text; -webkit-text-fill-color: transparent;
+    background-clip: text;
+    margin-bottom: 8px;
+  }
+  .hero-title {
+    font-family: 'Space Mono', monospace;
+    font-size: 13px; letter-spacing: 6px; text-transform: uppercase;
+    color: var(--muted); margin-bottom: 32px;
+  }
+  .hero-desc {
+    font-size: 16px; line-height: 1.8;
+    color: rgba(240,237,232,0.65);
+    max-width: 420px; margin-bottom: 48px;
+  }
+  .hero-tags {
+    display: flex; flex-wrap: wrap; gap: 10px; margin-bottom: 40px;
+  }
+  .tag {
+    padding: 6px 16px;
+    border: 1px solid var(--border);
+    border-radius: 2px;
+    font-family: 'Space Mono', monospace;
+    font-size: 10px; letter-spacing: 2px; text-transform: uppercase;
+    color: var(--muted);
+    transition: all 0.3s;
+  }
+  .tag:hover { border-color: var(--gold); color: var(--gold); }
+  .hero-cta { display: flex; gap: 16px; align-items: center; }
+  .btn-primary {
+    padding: 14px 36px;
+    background: var(--gold);
+    color: var(--black);
+    font-family: 'Space Mono', monospace;
+    font-size: 11px; letter-spacing: 3px; text-transform: uppercase;
+    border: none; cursor: none; text-decoration: none;
+    display: inline-flex; align-items: center; gap: 10px;
+    font-weight: 700;
+    transition: all 0.3s;
+    clip-path: polygon(0 0, calc(100% - 10px) 0, 100% 10px, 100% 100%, 10px 100%, 0 calc(100% - 10px));
+  }
+  .btn-primary:hover { background: var(--gold-light); transform: translateY(-2px); }
+  .btn-ghost {
+    padding: 14px 36px;
+    border: 1px solid var(--border);
+    color: var(--white);
+    font-family: 'Space Mono', monospace;
+    font-size: 11px; letter-spacing: 3px; text-transform: uppercase;
+    cursor: none; text-decoration: none;
+    display: inline-flex; align-items: center; gap: 10px;
+    transition: all 0.3s;
+  }
+  .btn-ghost:hover { border-color: var(--gold); color: var(--gold); }
+
+  /* ─── PROFILE IMAGE SIDE ─── */
+  .hero-visual {
+    position: relative; z-index: 2;
+    display: flex; justify-content: center; align-items: center;
+  }
+  .profile-frame {
+    position: relative; width: 380px; height: 480px;
+  }
+  .profile-outer-ring {
+    position: absolute; inset: -24px;
+    border: 1px solid rgba(201,168,76,0.2);
+    clip-path: polygon(20px 0, 100% 0, 100% calc(100% - 20px), calc(100% - 20px) 100%, 0 100%, 0 20px);
+    animation: rotateRing 20s linear infinite;
+  }
+  @keyframes rotateRing {
+    0% { box-shadow: inset 0 0 0 1px rgba(201,168,76,0.1); }
+    50% { box-shadow: inset 0 0 40px rgba(201,168,76,0.08); }
+    100% { box-shadow: inset 0 0 0 1px rgba(201,168,76,0.1); }
+  }
+  .profile-img-wrap {
+    width: 100%; height: 100%;
+    overflow: hidden;
+    clip-path: polygon(20px 0, 100% 0, 100% calc(100% - 20px), calc(100% - 20px) 100%, 0 100%, 0 20px);
+    background: var(--card);
+    border: 1px solid var(--border);
+  }
+  .profile-img-wrap img {
+    width: 100%; height: 100%;
+    object-fit: cover;
+    filter: grayscale(20%) contrast(1.05);
+    transition: filter 0.5s;
+  }
+  .profile-img-wrap:hover img { filter: grayscale(0%) contrast(1.1); }
+  .profile-placeholder {
+    width: 100%; height: 100%;
+    background: linear-gradient(135deg, #111 0%, #1a1a1a 50%, #0f0f0f 100%);
+    display: flex; flex-direction: column; align-items: center; justify-content: center;
+    gap: 16px;
+  }
+  .profile-placeholder svg { opacity: 0.2; }
+  .profile-placeholder span {
+    font-family: 'Space Mono', monospace;
+    font-size: 10px; letter-spacing: 3px;
+    color: var(--muted); text-transform: uppercase;
+  }
+  .profile-corner {
+    position: absolute;
+    width: 20px; height: 20px;
+    border-color: var(--gold);
+    border-style: solid;
+  }
+  .profile-corner.tl { top: -4px; left: -4px; border-width: 2px 0 0 2px; }
+  .profile-corner.tr { top: -4px; right: -4px; border-width: 2px 2px 0 0; }
+  .profile-corner.bl { bottom: -4px; left: -4px; border-width: 0 0 2px 2px; }
+  .profile-corner.br { bottom: -4px; right: -4px; border-width: 0 2px 2px 0; }
+  .profile-label {
+    position: absolute; bottom: -50px; left: 0; right: 0;
+    text-align: center;
+  }
+  .profile-label h3 {
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: 28px; letter-spacing: 6px;
+    color: var(--gold);
+  }
+  .profile-label p {
+    font-family: 'Space Mono', monospace;
+    font-size: 10px; letter-spacing: 3px; text-transform: uppercase;
+    color: var(--muted);
+  }
+  .floating-badge {
+    position: absolute;
+    padding: 10px 18px;
+    background: var(--card);
+    border: 1px solid var(--border);
+    font-family: 'Space Mono', monospace; font-size: 10px;
+    color: var(--teal); letter-spacing: 2px; text-transform: uppercase;
+    animation: float 4s ease-in-out infinite;
+  }
+  .floating-badge.b1 { top: 30px; right: -30px; animation-delay: 0s; }
+  .floating-badge.b2 { bottom: 80px; left: -40px; animation-delay: 1.5s; }
+  .floating-badge.b3 { top: 50%; right: -50px; animation-delay: 0.8s; }
+  @keyframes float {
+    0%, 100% { transform: translateY(0); }
+    50% { transform: translateY(-10px); }
+  }
+
+  /* ─── SECTION SHARED ─── */
+  section { position: relative; z-index: 1; }
+  .section-wrap { padding: 100px 72px; }
+  .section-header { margin-bottom: 64px; }
+  .section-num {
+    font-family: 'Space Mono', monospace;
+    font-size: 11px; letter-spacing: 4px; text-transform: uppercase;
+    color: var(--gold); margin-bottom: 12px;
+    display: flex; align-items: center; gap: 12px;
+  }
+  .section-num::after { content: ''; flex: 1; height: 1px; background: var(--border); max-width: 80px; }
+  .section-title {
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: clamp(48px, 6vw, 80px);
+    line-height: 0.95; letter-spacing: 2px;
+    color: var(--white);
+  }
+  .section-title span { color: var(--gold); }
+
+  /* ─── ABOUT ─── */
+  #about { background: var(--deep); }
+  .about-grid {
+    display: grid; grid-template-columns: 1fr 1fr;
+    gap: 80px; align-items: start;
+  }
+  .about-text p {
+    font-size: 16px; line-height: 1.9;
+    color: rgba(240,237,232,0.7); margin-bottom: 20px;
+  }
+  .about-stats {
+    display: grid; grid-template-columns: 1fr 1fr;
+    gap: 2px; margin-top: 40px;
+  }
+  .stat-box {
+    padding: 28px 24px;
+    background: var(--card);
+    border: 1px solid var(--border);
+    transition: all 0.3s;
+  }
+  .stat-box:hover { border-color: var(--gold); transform: translateY(-4px); }
+  .stat-num {
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: 52px; color: var(--gold); line-height: 1;
+  }
+  .stat-label {
+    font-family: 'Space Mono', monospace;
+    font-size: 10px; letter-spacing: 3px; text-transform: uppercase;
+    color: var(--muted); margin-top: 4px;
+  }
+  .hobby-panel {
+    background: var(--card); border: 1px solid var(--border);
+    padding: 40px; position: relative; overflow: hidden;
+  }
+  .hobby-panel::before {
+    content: '';
+    position: absolute; top: 0; left: 0; right: 0; height: 2px;
+    background: linear-gradient(90deg, var(--gold), var(--teal));
+  }
+  .hobby-title {
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: 32px; letter-spacing: 3px; color: var(--white);
+    margin-bottom: 8px;
+  }
+  .hobby-sub {
+    font-family: 'Space Mono', monospace;
+    font-size: 10px; letter-spacing: 3px; text-transform: uppercase;
+    color: var(--gold); margin-bottom: 24px;
+  }
+  .hobby-text {
+    font-size: 15px; line-height: 1.8;
+    color: rgba(240,237,232,0.65); margin-bottom: 32px;
+  }
+  .hobby-sketch-grid {
+    display: grid; grid-template-columns: repeat(3, 1fr);
+    gap: 8px;
+  }
+  .sketch-thumb {
+    aspect-ratio: 1;
+    background: var(--deep);
+    border: 1px solid var(--border);
+    overflow: hidden; cursor: none;
+    position: relative;
+    transition: transform 0.3s;
+  }
+  .sketch-thumb:hover { transform: scale(1.05); z-index: 2; }
+  .sketch-thumb img { width: 100%; height: 100%; object-fit: cover; }
+  .sketch-placeholder {
+    width: 100%; height: 100%;
+    display: flex; align-items: center; justify-content: center;
+    font-family: 'Space Mono', monospace;
+    font-size: 9px; letter-spacing: 2px; text-transform: uppercase;
+    color: var(--border);
+    flex-direction: column; gap: 6px;
+  }
+
+  /* ─── SKILLS ─── */
+  #skills { background: var(--black); }
+  .skills-grid {
+    display: grid; grid-template-columns: repeat(3, 1fr);
+    gap: 2px;
+  }
+  .skill-card {
+    padding: 36px 32px;
+    background: var(--card);
+    border: 1px solid var(--border);
+    transition: all 0.4s;
+    position: relative; overflow: hidden;
+    cursor: none;
+  }
+  .skill-card::before {
+    content: '';
+    position: absolute; bottom: 0; left: 0; right: 0; height: 0;
+    background: linear-gradient(to top, rgba(201,168,76,0.05), transparent);
+    transition: height 0.4s;
+  }
+  .skill-card:hover { border-color: var(--gold); transform: translateY(-6px); }
+  .skill-card:hover::before { height: 100%; }
+  .skill-icon {
+    width: 44px; height: 44px; margin-bottom: 20px;
+    display: flex; align-items: center; justify-content: center;
+    background: var(--deep);
+    border: 1px solid var(--border);
+    font-size: 20px;
+    transition: border-color 0.3s;
+  }
+  .skill-card:hover .skill-icon { border-color: var(--gold); }
+  .skill-name {
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: 22px; letter-spacing: 2px; color: var(--white);
+    margin-bottom: 8px;
+  }
+  .skill-desc {
+    font-size: 13px; line-height: 1.7;
+    color: rgba(240,237,232,0.5);
+  }
+  .skill-level {
+    margin-top: 20px;
+    height: 2px; background: var(--border); position: relative;
+  }
+  .skill-level-fill {
+    position: absolute; left: 0; top: 0; height: 100%;
+    background: linear-gradient(90deg, var(--gold), var(--teal));
+    transition: width 1.2s ease;
+  }
+
+  /* ─── PROJECTS ─── */
+  #projects { background: var(--deep); }
+  .projects-grid {
+    display: grid; grid-template-columns: repeat(2, 1fr);
+    gap: 2px;
+  }
+  .project-card {
+    background: var(--card); border: 1px solid var(--border);
+    overflow: hidden; position: relative;
+    transition: all 0.4s; cursor: none;
+  }
+  .project-card:hover { border-color: var(--gold); transform: translateY(-8px); }
+  .project-img {
+    height: 220px; overflow: hidden;
+    background: linear-gradient(135deg, #0d0d0d, #1a1a1a);
+    position: relative;
+  }
+  .project-img img { width: 100%; height: 100%; object-fit: cover; filter: grayscale(30%); transition: all 0.5s; }
+  .project-card:hover .project-img img { filter: grayscale(0%) scale(1.05); transform: scale(1.05); }
+  .project-img-placeholder {
+    width: 100%; height: 100%;
+    display: flex; align-items: center; justify-content: center;
+    position: relative;
+  }
+  .project-img-placeholder::after {
+    content: attr(data-label);
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: 64px; letter-spacing: 4px;
+    color: rgba(201,168,76,0.08);
+  }
+  .project-type {
+    position: absolute; top: 16px; left: 16px;
+    padding: 4px 12px;
+    background: var(--gold); color: var(--black);
+    font-family: 'Space Mono', monospace;
+    font-size: 9px; letter-spacing: 2px; text-transform: uppercase;
+    font-weight: 700;
+  }
+  .project-info { padding: 28px 32px; }
+  .project-name {
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: 28px; letter-spacing: 2px;
+    color: var(--white); margin-bottom: 8px;
+  }
+  .project-desc {
+    font-size: 13px; line-height: 1.7;
+    color: rgba(240,237,232,0.55); margin-bottom: 20px;
+  }
+  .project-stack { display: flex; flex-wrap: wrap; gap: 6px; margin-bottom: 24px; }
+  .stack-tag {
+    padding: 3px 10px;
+    background: var(--deep); border: 1px solid var(--border);
+    font-family: 'Space Mono', monospace; font-size: 9px;
+    letter-spacing: 1px; text-transform: uppercase; color: var(--muted);
+  }
+  .project-link {
+    display: inline-flex; align-items: center; gap: 8px;
+    font-family: 'Space Mono', monospace; font-size: 10px;
+    letter-spacing: 2px; text-transform: uppercase;
+    color: var(--gold); text-decoration: none;
+    transition: gap 0.3s;
+  }
+  .project-link:hover { gap: 14px; }
+  .project-featured {
+    grid-column: 1 / -1;
+  }
+  .project-featured .project-img { height: 320px; }
+
+  /* ─── SKETCHES ─── */
+  #sketches { background: var(--black); }
+  .sketches-masonry {
+    columns: 3; gap: 12px;
+  }
+  .sketch-item {
+    break-inside: avoid;
+    margin-bottom: 12px;
+    position: relative; overflow: hidden;
+    border: 1px solid var(--border);
+    cursor: none;
+    transition: all 0.4s;
+  }
+  .sketch-item:hover { border-color: var(--gold); }
+  .sketch-item img { width: 100%; display: block; filter: grayscale(20%); transition: filter 0.4s; }
+  .sketch-item:hover img { filter: grayscale(0%); }
+  .sketch-overlay {
+    position: absolute; inset: 0;
+    background: rgba(5,5,5,0.8);
+    display: flex; align-items: center; justify-content: center;
+    opacity: 0; transition: opacity 0.3s;
+  }
+  .sketch-item:hover .sketch-overlay { opacity: 1; }
+  .sketch-overlay-text {
+    font-family: 'Space Mono', monospace; font-size: 10px;
+    letter-spacing: 3px; text-transform: uppercase; color: var(--gold);
+    text-align: center;
+  }
+  .sketch-placeholder-large {
+    background: var(--card);
+    border: 1px solid var(--border);
+    aspect-ratio: 3/4;
+    display: flex; flex-direction: column; align-items: center; justify-content: center;
+    gap: 12px;
+  }
+  .sketch-placeholder-large span {
+    font-family: 'Space Mono', monospace; font-size: 9px;
+    letter-spacing: 2px; text-transform: uppercase; color: var(--border);
+  }
+
+  /* ─── CERTIFICATE ─── */
+  #certifications { background: var(--deep); }
+  .cert-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 32px; }
+  .cert-card {
+    padding: 0; background: var(--card);
+    border: 1px solid var(--border); overflow: hidden;
+    transition: all 0.4s; cursor: none;
+    display: grid; grid-template-rows: auto 1fr;
+  }
+  .cert-card:hover { border-color: var(--gold); transform: translateY(-6px); }
+  .cert-img {
+    height: 260px; overflow: hidden;
+    background: linear-gradient(135deg, #0d0d0d, #1a1a1a);
+    display: flex; align-items: center; justify-content: center;
+    border-bottom: 1px solid var(--border);
+    position: relative;
+  }
+  .cert-img img { width: 100%; height: 100%; object-fit: cover; }
+  .cert-img-placeholder {
+    width: 100%; height: 100%;
+    display: flex; flex-direction: column; align-items: center; justify-content: center;
+    gap: 16px;
+    background: repeating-linear-gradient(
+      45deg, transparent, transparent 10px,
+      rgba(201,168,76,0.02) 10px, rgba(201,168,76,0.02) 20px
+    );
+  }
+  .cert-seal {
+    width: 80px; height: 80px;
+    border: 2px solid var(--gold);
+    border-radius: 50%;
+    display: flex; align-items: center; justify-content: center;
+    font-size: 28px;
+  }
+  .cert-label {
+    font-family: 'Bebas Neue', sans-serif; font-size: 18px;
+    letter-spacing: 4px; color: var(--gold);
+  }
+  .cert-info { padding: 28px 32px; }
+  .cert-name {
+    font-family: 'Bebas Neue', sans-serif; font-size: 26px;
+    letter-spacing: 2px; color: var(--white); margin-bottom: 6px;
+  }
+  .cert-issuer {
+    font-family: 'Space Mono', monospace; font-size: 10px;
+    letter-spacing: 2px; text-transform: uppercase; color: var(--teal);
+    margin-bottom: 12px;
+  }
+  .cert-desc {
+    font-size: 13px; line-height: 1.7;
+    color: rgba(240,237,232,0.55);
+  }
+
+  /* ─── EDUCATION ─── */
+  #education { background: var(--black); }
+  .edu-timeline { position: relative; padding-left: 60px; }
+  .edu-timeline::before {
+    content: '';
+    position: absolute; left: 12px; top: 0; bottom: 0; width: 1px;
+    background: linear-gradient(to bottom, var(--gold), var(--teal), transparent);
+  }
+  .edu-item {
+    position: relative; margin-bottom: 56px;
+    padding: 36px 40px;
+    background: var(--card); border: 1px solid var(--border);
+    transition: all 0.4s;
+  }
+  .edu-item:hover { border-color: var(--gold); transform: translateX(8px); }
+  .edu-dot {
+    position: absolute; left: -54px; top: 40px;
+    width: 14px; height: 14px;
+    background: var(--gold); border: 2px solid var(--black);
+    box-shadow: 0 0 16px rgba(201,168,76,0.5);
+  }
+  .edu-year {
+    font-family: 'Space Mono', monospace; font-size: 10px;
+    letter-spacing: 3px; text-transform: uppercase; color: var(--gold);
+    margin-bottom: 10px;
+  }
+  .edu-degree {
+    font-family: 'Bebas Neue', sans-serif; font-size: 32px;
+    letter-spacing: 2px; color: var(--white); margin-bottom: 6px;
+  }
+  .edu-school {
+    font-family: 'Space Mono', monospace; font-size: 11px;
+    letter-spacing: 2px; text-transform: uppercase; color: var(--teal);
+    margin-bottom: 16px;
+  }
+  .edu-desc {
+    font-size: 14px; line-height: 1.7;
+    color: rgba(240,237,232,0.55);
+  }
+
+  /* ─── CONNECT ─── */
+  #connect {
+    background: var(--deep);
+    position: relative; overflow: hidden;
+  }
+  #connect::before {
+    content: '';
+    position: absolute; inset: 0;
+    background: radial-gradient(ellipse 80% 60% at 50% 100%, rgba(201,168,76,0.06) 0%, transparent 70%);
+  }
+  .connect-inner {
+    padding: 100px 72px;
+    position: relative; z-index: 1;
+    text-align: center;
+  }
+  .connect-title {
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: clamp(56px, 8vw, 110px); line-height: 0.9;
+    background: linear-gradient(135deg, var(--white), var(--gold));
+    -webkit-background-clip: text; -webkit-text-fill-color: transparent;
+    background-clip: text; margin-bottom: 24px;
+  }
+  .connect-sub {
+    font-size: 16px; line-height: 1.7;
+    color: rgba(240,237,232,0.55); max-width: 480px;
+    margin: 0 auto 56px;
+  }
+  .social-links {
+    display: flex; justify-content: center;
+    flex-wrap: wrap; gap: 16px; margin-bottom: 48px;
+  }
+  .social-link {
+    display: flex; align-items: center; gap: 12px;
+    padding: 16px 28px;
+    background: var(--card); border: 1px solid var(--border);
+    text-decoration: none; color: var(--white);
+    font-family: 'Space Mono', monospace; font-size: 11px;
+    letter-spacing: 2px; text-transform: uppercase;
+    transition: all 0.3s; cursor: none;
+    clip-path: polygon(0 0, calc(100% - 8px) 0, 100% 8px, 100% 100%, 8px 100%, 0 calc(100% - 8px));
+  }
+  .social-link:hover { border-color: var(--gold); color: var(--gold); transform: translateY(-4px); }
+  .social-link.instagram:hover { border-color: #e1306c; color: #e1306c; }
+  .social-link.github:hover { border-color: var(--teal); color: var(--teal); }
+  .social-icon { font-size: 18px; }
+
+  /* ─── FOOTER ─── */
+  footer {
+    padding: 28px 72px;
+    background: var(--black);
+    border-top: 1px solid var(--border);
+    display: flex; justify-content: space-between; align-items: center;
+  }
+  .footer-text {
+    font-family: 'Space Mono', monospace; font-size: 10px;
+    letter-spacing: 2px; text-transform: uppercase; color: var(--muted);
+  }
+  .footer-logo {
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: 20px; letter-spacing: 4px; color: var(--gold);
+  }
+
+  /* ─── SCROLL INDICATOR ─── */
+  .scroll-indicator {
+    position: absolute; bottom: 40px; left: 72px;
+    display: flex; align-items: center; gap: 12px;
+    font-family: 'Space Mono', monospace; font-size: 9px;
+    letter-spacing: 3px; text-transform: uppercase; color: var(--muted);
+    z-index: 2;
+  }
+  .scroll-line {
+    width: 1px; height: 40px; background: var(--gold);
+    animation: scrollLine 2s ease-in-out infinite;
+  }
+  @keyframes scrollLine {
+    0% { transform: scaleY(0); transform-origin: top; }
+    50% { transform: scaleY(1); transform-origin: top; }
+    51% { transform: scaleY(1); transform-origin: bottom; }
+    100% { transform: scaleY(0); transform-origin: bottom; }
+  }
+
+  /* ─── REVEAL ANIMATION ─── */
+  .reveal {
+    opacity: 0; transform: translateY(30px);
+    transition: all 0.8s cubic-bezier(0.16, 1, 0.3, 1);
+  }
+  .reveal.visible { opacity: 1; transform: translateY(0); }
+  .reveal-delay-1 { transition-delay: 0.1s; }
+  .reveal-delay-2 { transition-delay: 0.2s; }
+  .reveal-delay-3 { transition-delay: 0.3s; }
+  .reveal-delay-4 { transition-delay: 0.4s; }
+
+  /* ─── 3D TILT CARDS ─── */
+  .tilt-card { transform-style: preserve-3d; transition: transform 0.1s; }
+
+  /* ─── PROGRESS BAR ─── */
+  .page-progress {
+    position: fixed; top: 0; left: 0; height: 2px;
+    background: linear-gradient(90deg, var(--gold), var(--teal));
+    z-index: 200; transition: width 0.1s;
+  }
+
+  /* ─── SECTION DIVIDER ─── */
+  .divider {
+    height: 1px; background: var(--border);
+    margin: 0 72px;
+  }
+
+  /* ─── RESPONSIVE ─── */
+  @media (max-width: 900px) {
+    nav { padding: 18px 24px; }
+    .nav-links { display: none; }
+    #hero { grid-template-columns: 1fr; padding: 100px 24px 60px; }
+    .hero-visual { display: none; }
+    .section-wrap { padding: 72px 24px; }
+    .about-grid, .cert-grid, .projects-grid { grid-template-columns: 1fr; }
+    .skills-grid { grid-template-columns: 1fr 1fr; }
+    .sketches-masonry { columns: 2; }
+    footer { padding: 20px 24px; }
+    .divider { margin: 0 24px; }
+  }
+</style>
+</head>
+<body>
+
+<!-- Progress Bar -->
+<div class="page-progress" id="pageProgress"></div>
+
+<!-- Cursor -->
+<div class="cursor" id="cursor"></div>
+<div class="cursor-trail" id="cursorTrail"></div>
+
+<!-- NAV -->
+<nav>
+  <div class="nav-logo">SK</div>
+  <ul class="nav-links">
+    <li><a href="#about">About</a></li>
+    <li><a href="#skills">Skills</a></li>
+    <li><a href="#projects">Projects</a></li>
+    <li><a href="#sketches">Sketches</a></li>
+    <li><a href="#certifications">Certs</a></li>
+    <li><a href="#connect">Connect</a></li>
+  </ul>
+</nav>
+
+<!-- ───────────── HERO ───────────── -->
+<section id="hero">
+  <div class="hero-bg-grid"></div>
+  <div class="hero-bg-radial"></div>
+
+  <div class="hero-content">
+    <div class="hero-eyebrow reveal">Available for projects</div>
+    <div class="hero-name reveal reveal-delay-1">Sibgha<br>Khalid</div>
+    <div class="hero-title reveal reveal-delay-2">Web Developer &amp; Creative</div>
+    <p class="hero-desc reveal reveal-delay-3">
+      Physicist turned developer. I craft clean, fast, and visually striking websites — and sketch the world between code sessions.
+    </p>
+    <div class="hero-tags reveal reveal-delay-3">
+      <span class="tag">HTML</span>
+      <span class="tag">CSS</span>
+      <span class="tag">JavaScript</span>
+      <span class="tag">Bootstrap</span>
+      <span class="tag">Figma</span>
+      <span class="tag">GitHub</span>
+      <span class="tag">Vercel</span>
+      <span class="tag">Cybersecurity</span>
+    </div>
+    <div class="hero-cta reveal reveal-delay-4">
+      <a href="#projects" class="btn-primary">View Projects ↓</a>
+      <a href="#connect" class="btn-ghost">Let's Connect →</a>
+    </div>
+  </div>
+
+  <div class="hero-visual reveal reveal-delay-2">
+    <div class="profile-frame">
+      <div class="profile-outer-ring"></div>
+      <div class="profile-img-wrap">
+        <!-- Replace src with your actual photo URL -->
+        <div class="profile-placeholder">
+          <svg width="64" height="64" viewBox="0 0 64 64" fill="none">
+            <circle cx="32" cy="24" r="14" stroke="#c9a84c" stroke-width="1.5"/>
+            <path d="M8 56c0-13.255 10.745-24 24-24s24 10.745 24 24" stroke="#c9a84c" stroke-width="1.5"/>
+          </svg>
+          <span><img src="image22.jfif" alt=""></span>
+        </div>
+      </div>
+      <div class="profile-corner tl"></div>
+      <div class="profile-corner tr"></div>
+      <div class="profile-corner bl"></div>
+      <div class="profile-corner br"></div>
+      <div class="floating-badge b1">✦ BS Physics</div>
+      <div class="floating-badge b2">✦ Cybersecurity</div>
+      <div class="floating-badge b3">✦ Frontend Dev</div>
+    </div>
+    <div class="profile-label">
+      <h3>Sibgha Khalid</h3>
+      <p>Web Developer · Sketcher · Physics Graduate</p>
+    </div>
+  </div>
+
+  <div class="scroll-indicator">
+    <div class="scroll-line"></div>
+    Scroll
+  </div>
+</section>
+
+<div class="divider"></div>
+
+<!-- ───────────── ABOUT ───────────── -->
+<section id="about">
+  <div class="section-wrap">
+    <div class="section-header reveal">
+      <div class="section-num">01 — About</div>
+      <h2 class="section-title">Who I <span>Am</span></h2>
+    </div>
+    <div class="about-grid">
+      <div class="about-text reveal">
+        <p>I'm Sibgha Khalid — a BS Physics graduate who discovered a deep love for the web. My analytical background from physics gives me a unique edge in problem-solving and building logical, clean code structures.</p>
+        <p>I completed my web development journey learning HTML, CSS, JavaScript, Bootstrap, and Figma — then immediately put it to use by building real client websites, deploying on Vercel, and managing everything through GitHub.</p>
+        <p>Away from screens, I sketch. It's my way of seeing the world differently — lines, light, shadow, perspective. The same principles I bring to every interface I design.</p>
+        <div class="about-stats">
+          <div class="stat-box tilt-card reveal">
+            <div class="stat-num">👥</div>
+            <div class="stat-label">Project client delivered</div>
+          </div>
+          <div class="stat-box tilt-card reveal reveal-delay-1">
+            <div class="stat-num">📽️</div>
+            <div class="stat-label">Projects Built</div>
+          </div>
+          <div class="stat-box tilt-card reveal reveal-delay-2">
+            <div class="stat-num">👩🏻‍🎓</div>
+            <div class="stat-label">Certifications</div>
+          </div>
+          <div class="stat-box tilt-card reveal reveal-delay-3">
+            <div class="stat-num">∞</div>
+            <div class="stat-label">Sketches Created</div>
+          </div>
+        </div>
+      </div>
+      <div class="hobby-panel tilt-card reveal reveal-delay-2">
+        <div class="hobby-title">Art & Sketches</div>
+        <div class="hobby-sub">✦ Creative Hobby</div>
+        <p class="hobby-text">Sketching is how I stay creative outside of code. Every line I draw teaches me something about composition and detail — skills that directly improve how I design websites.</p>
+        <div class="hobby-sketch-grid">
+          <!-- Replace with your actual sketch image URLs -->
+          <div class="sketch-thumb"><div class="sketch-placeholder">✏️<span><img src="image sketch 1.jfif" alt=""></span></div></div>
+          <div class="sketch-thumb"><div class="sketch-placeholder">✏️<span><img src="image sketch 2.jfif" alt=""></span></div></div>
+          <div class="sketch-thumb"><div class="sketch-placeholder">✏️<span><img src="image sketches 3.jfif" alt=""></span></div></div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<div class="divider"></div>
+
+<!-- ───────────── SKILLS ───────────── -->
+<section id="skills">
+  <div class="section-wrap">
+    <div class="section-header reveal">
+      <div class="section-num"> Skills</div>
+      <h2 class="section-title">What I <span>Know</span></h2>
+    </div>
+    <div class="skills-grid">
+      <div class="skill-card tilt-card reveal">
+        <div class="skill-icon">🌐</div>
+        <div class="skill-name">HTML & CSS</div>
+        <p class="skill-desc">Semantic, accessible markup paired with modern CSS — layouts, animations, responsive design.</p>
+        <div class="skill-level"><div class="skill-level-fill" style="width:90%"></div></div>
+      </div>
+      <div class="skill-card tilt-card reveal reveal-delay-1">
+        <div class="skill-icon">⚡</div>
+        <div class="skill-name">JavaScript</div>
+        <p class="skill-desc">DOM manipulation, event handling, interactive UI and dynamic web experiences.</p>
+        <div class="skill-level"><div class="skill-level-fill" style="width:78%"></div></div>
+      </div>
+      <div class="skill-card tilt-card reveal reveal-delay-2">
+        <div class="skill-icon">🅱️</div>
+        <div class="skill-name">Bootstrap</div>
+        <p class="skill-desc">Rapid UI development with responsive grid systems and pre-built components.</p>
+        <div class="skill-level"><div class="skill-level-fill" style="width:85%"></div></div>
+      </div>
+      <div class="skill-card tilt-card reveal reveal-delay-1">
+        <div class="skill-icon">🎨</div>
+        <div class="skill-name">Figma</div>
+        <p class="skill-desc">Wireframing, prototyping and design system creation before a single line of code.</p>
+        <div class="skill-level"><div class="skill-level-fill" style="width:72%"></div></div>
+      </div>
+      <div class="skill-card tilt-card reveal reveal-delay-2">
+        <div class="skill-icon">🐙</div>
+        <div class="skill-name">GitHub</div>
+        <p class="skill-desc">Version control, repositories, branches, commits — full Git workflow in daily use.</p>
+        <div class="skill-level"><div class="skill-level-fill" style="width:80%"></div></div>
+      </div>
+      <div class="skill-card tilt-card reveal reveal-delay-3">
+        <div class="skill-icon">▲</div>
+        <div class="skill-name">Vercel Deploy</div>
+        <p class="skill-desc">Seamless CI/CD deployment of live websites straight from GitHub repositories.</p>
+        <div class="skill-level"><div class="skill-level-fill" style="width:82%"></div></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<div class="divider"></div>
+
+<!-- ───────────── PROJECTS ───────────── -->
+<section id="projects">
+  <div class="section-wrap">
+    <div class="section-header reveal">
+      <div class="section-num">Work</div>
+      <h2 class="section-title">Projects <span>&</span><br>Client Work</h2>
+    </div>
+    <div class="projects-grid">
+
+      <!-- CLIENT PROJECT — FEATURED -->
+      <div class="project-card project-featured tilt-card reveal">
+        <div class="project-img">
+          <!-- Replace with client site screenshot -->
+          <div class="project-img-placeholder" data-label="CLIENT"></div>
+          <div class="project-type">⭐ Client Project <img src="clients deal image 23.jpg" alt="client"></div>
+        </div>
+        <div class="project-info">
+          <div class="project-name">Mughal sanitary store</div>
+          <p class="project-desc">Designed and developed a fully custom website based on client requirements — from initial Figma mockup to live deployed product on Vercel. Delivered on time with responsive design and clean code.</p>
+          <div class="project-stack">
+            <span class="stack-tag">HTML</span>
+            <span class="stack-tag">CSS</span>
+            <span class="stack-tag">JavaScript</span>
+            <span class="stack-tag">Figma</span>
+            <span class="stack-tag">Vercel</span>
+          </div>
+          <!-- Replace # with actual live URL -->https://mughal-sanitary-store-gojra-lb7pwzbua-sibgha-khalid-s-projects.vercel.app/
+          <a href="https://mughal-sanitary-store-gojra-lb7pwzbua-sibgha-khalid-s-projects.vercel.app/" target="_blank" class="project-link">View Live Site →</a>
+        </div>
+      </div>
+
+      <!-- CARD PROJECT -->
+      <div class="project-card tilt-card reveal reveal-delay-1">
+        <div class="project-img">
+          <div class="project-img-placeholder" data-label="P"></div>
+          <div class="project-type">Personal <img src="frnd eid wishes.jfif" alt=""></div>
+        </div>
+        <div class="project-info">
+          <div class="project-name">Eid card</div>
+          <p class="project-desc">A responsive website built with HTML, CSS and JavaScript. Pushed to GitHub and deployed live on Vercel.</p>
+          <div class="project-stack">
+            <span class="stack-tag">HTML</span>
+            <span class="stack-tag">CSS</span>
+            <span class="stack-tag">Bootstrap</span>
+          </div>
+          <a href="https://eid-wishes-to-frnd.vercel.app/" target="_blank" class="project-link">View on GitHub →></a>
+        </div>
+      </div>
+
+      <!-- PROJECT -->
+      <div class="project-card tilt-card reveal reveal-delay-2">
+        <div class="project-img">
+          <div class="project-img-placeholder" data-label="P"></div>
+          <div class="project-type">Personal <img src="registration form of students.jpg" alt=""></div>
+        </div>
+        <div class="project-info">
+          <div class="project-name">Student Registration form</div>
+          <p class="project-desc">Another web project showcasing responsive layout skills and clean JavaScript interactions.</p>
+          <div class="project-stack">
+            <span class="stack-tag">HTML</span>
+            <span class="stack-tag">CSS</span>
+            <span class="stack-tag">JavaScript</span>
+          </div>
+          <a href="https://student-registration-form.vercel.app/" target="_blank" class="project-link">View Live →</a>
+        </div>
+      </div>
+
+      <!-- PROJECT -->
+      <div class="project-card tilt-card reveal reveal-delay-3">
+        <div class="project-img">
+          <div class="project-img-placeholder" data-label="P"></div>
+          <div class="project-type">Personal <img src="tesla car 1.jpg" alt=""></div>
+        </div>
+        <div class="project-info">
+          <div class="project-name">Tesla car</div>
+          <p class="project-desc">UI design experiment from Figma to code — bridging the gap between design thinking and development.</p>
+          <div class="project-stack">
+            <span class="stack-tag">Figma</span>
+            <span class="stack-tag">HTML</span>
+            <span class="stack-tag">CSS</span>
+          </div>
+          <a href="https://tesla-car-iota.vercel.app/" target="_blank" class="project-link">View Design →</a>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<div class="divider"></div>
+
+<!-- ───────────── SKETCHES GALLERY ───────────── -->
+<section id="sketches">
+  <div class="section-wrap">
+    <div class="section-header reveal">
+      <div class="section-num"> Art</div>
+      <h2 class="section-title">Sketch <span>Gallery</span></h2>
+      <p style="margin-top:16px;color:var(--muted);font-size:14px;font-family:'Space Mono',monospace;letter-spacing:2px;">
+        Follow my sketches on Instagram →
+        <a href="https://www.instagram.com/itzmesibgha?igsh=MWU5bmVwdmVtbXlpbA==" target="_blank" style="color:var(--gold);text-decoration:none;">itzmesibgha</a>
+      </p>
+    </div>
+    <div class="sketches-masonry">
+      <!-- Replace with actual sketch images -->
+      <div class="sketch-item reveal">
+        <div class="sketch-placeholder-large"><span>✏️ Sketch 1</span><span><img src="sketch 4.jfif" alt=""></span></div>
+        <div class="sketch-overlay"><div class="sketch-overlay-text">Portrait Study<br>#pencil</div></div>
+      </div>
+      <div class="sketch-item reveal reveal-delay-1">
+        <div class="sketch-placeholder-large" style="aspect-ratio:3/5;"><span>✏️ Sketch 2</span><span><img src="sketch image 7.jfif" alt=""></span></div>
+        <div class="sketch-overlay"><div class="sketch-overlay-text">Figure Study<br>#charcoal</div></div>
+      </div>
+      <div class="sketch-item reveal reveal-delay-2">
+        <div class="sketch-placeholder-large" style="aspect-ratio:4/3;"><span>✏️ Sketch 3</span><span><img src="sketch 1.jfif" alt=""></span></div>
+        <div class="sketch-overlay"><div class="sketch-overlay-text">Still Life<br>#pencil</div></div>
+      </div>
+      <div class="sketch-item reveal reveal-delay-1">
+        <div class="sketch-placeholder-large" style="aspect-ratio:3/5;"><span>✏️ Sketch 4</span><span><img src="sketch 6.jfif" alt=""></span></div>
+        <div class="sketch-overlay"><div class="sketch-overlay-text">Landscape<br>#ink</div></div>
+      </div>
+      <div class="sketch-item reveal reveal-delay-2">
+        <div class="sketch-placeholder-large"><span>✏️ Sketch 5</span><span><img src="sketch 5.jfif" alt=""></span></div>
+        <div class="sketch-overlay"><div class="sketch-overlay-text">Abstract<br>#charcoal</div></div>
+      </div>
+      <div class="sketch-item reveal reveal-delay-3">
+        <div class="sketch-placeholder-large" style="aspect-ratio:4/3;"><span>✏️ Sketch 6</span><span><img src="sketch 3.jfif" alt=""></span></div>
+        <div class="sketch-overlay"><div class="sketch-overlay-text">Architecture<br>#pen</div></div>
+      </div>
+    </div>
+    <div style="text-align:center;margin-top:48px;" class="reveal">
+      <a href="https://www.instagram.com/itzmesibgha?igsh=MWU5bmVwdmVtbXlpbA==" target="_blank" class="btn-ghost">View All on Instagram →</a>
+    </div>
+  </div>
+</section>
+
+<div class="divider"></div>
+
+<!-- ───────────── CERTIFICATIONS ───────────── -->
+<section id="certifications">
+  <div class="section-wrap">
+    <div class="section-header reveal">
+      <div class="section-num">Credentials</div>
+      <h2 class="section-title">Certifi<span>cations</span></h2>
+    </div>
+    <div class="cert-grid">
+
+      <div class="cert-card tilt-card reveal">
+        <div class="cert-img">
+          <!-- Replace with your actual certificate image -->
+          <div class="cert-img-placeholder">
+            <div class="cert-seal">🔐</div>
+            <div class="cert-label">Cybersecurity <img src="certificate of cybersecurity.jfif" alt=""></div>
+          </div>
+        </div>
+        <div class="cert-info">
+          <div class="cert-name">Cybersecurity Certificate</div>
+          <div class="cert-issuer">✦ Certified Professional </div>
+          <p class="cert-desc">Comprehensive training in cybersecurity fundamentals, threat analysis, network security, and digital protection principles.</p>
+        </div>
+      </div>
+
+      <div class="cert-card tilt-card reveal reveal-delay-1">
+        <div class="cert-img">
+          <!-- Replace with your actual certificate image -->
+          <div class="cert-img-placeholder">
+            <div class="cert-seal">🌐</div>
+            <div class="cert-label">Web Development <img src="web development image.jfif" alt=""></div>
+          </div>
+        </div>
+        <div class="cert-info">
+          <div class="cert-name">Web Development Course</div>
+          <div class="cert-issuer">✦ Course Completion</div>
+          <p class="cert-desc">Full course covering HTML, CSS, JavaScript, Bootstrap, deployment with Vercel and version control with GitHub.</p>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<div class="divider"></div>
+
+<!-- ───────────── EDUCATION ───────────── -->
+<section id="education">
+  <div class="section-wrap">
+    <div class="section-header reveal">
+      <div class="section-num">Education</div>
+      <h2 class="section-title">My <span>Journey</span></h2>
+    </div>
+    <div class="edu-timeline">
+
+      <div class="edu-item tilt-card reveal">
+        <div class="edu-dot"></div>
+        <div class="edu-year">2026 — Present</div>
+        <div class="edu-degree">Web Development</div>
+        <div class="edu-school">✦ physical Course</div>
+        <p class="edu-desc">Learning HTML, CSS, JavaScript, Bootstrap and Figma. Building real projects, pushing to GitHub, deploying on Vercel. Completed first client project.</p>
+      </div>
+
+      <div class="edu-item tilt-card reveal reveal-delay-1">
+        <div class="edu-dot"></div>
+        <div class="edu-year">2025</div>
+        <div class="edu-degree">Cybersecurity Certificate</div>
+        <div class="edu-school">✦ Professional Certification</div>
+        <p class="edu-desc">Earned a cybersecurity certificate covering network security, threat detection, and digital safety fundamentals.</p>
+      </div>
+
+      <div class="edu-item tilt-card reveal reveal-delay-2">
+        <div class="edu-dot"></div>
+        <div class="edu-year">Graduated</div>
+        <div class="edu-degree">BS in Physics</div>
+        <div class="edu-school">✦ Bachelor of Science</div>
+        <p class="edu-desc">Four years studying the fundamental laws of the universe — building analytical thinking, mathematical reasoning, and a deep curiosity about how things work. Skills that transfer beautifully to software development.</p>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<div class="divider"></div>
+
+<!-- ───────────── CONNECT ───────────── -->
+<section id="connect">
+  <div class="connect-inner">
+    <div class="section-num reveal" style="justify-content:center;">Connect</div>
+    <div class="connect-title reveal">Let's Build<br>Something.</div>
+    <p class="connect-sub reveal reveal-delay-1">Open to freelance projects, collaborations, and conversations. Whether you need a website or just want to talk design — I'm here.</p>
+    <div class="social-links reveal reveal-delay-2">
+      <a href="https://www.instagram.com/itzmesibgha?igsh=MWU5bmVwdmVtbXlpbA==" target="_blank" class="social-link instagram">
+        <span class="social-icon">📸</span> Instagram
+      </a>
+      <a href="https://github.com/dashboard" target="_blank" class="social-link github">
+        <span class="social-icon">🐙</span> GitHub
+      </a>
+      <a href="https://linktr.ee/khalidsibgha7" target="_blank" class="social-link">
+        <span class="social-icon">🌲</span> Linktree
+      </a>
+    </div>
+    <div class="reveal reveal-delay-3">
+      <a href="mailto:sibghakhalid@email.com" class="btn-primary" style="display:inline-flex;">
+        ✉️ &nbsp; Get In Touch
+      </a>
+    </div>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer>
+  <div class="footer-text">© 2026 Sibgha Khalid — All rights reserved</div>
+  <div class="footer-logo">SK</div>
+  <div class="footer-text">Web Developer · punjab, PK</div>
+</footer>
+
+<script>
+// ─── CURSOR ───
+const cursor = document.getElementById('cursor');
+const trail = document.getElementById('cursorTrail');
+let mx = 0, my = 0, tx = 0, ty = 0;
+
+document.addEventListener('mousemove', e => {
+  mx = e.clientX; my = e.clientY;
+  cursor.style.transform = `translate(${mx - 6}px, ${my - 6}px)`;
+});
+function animateTrail() {
+  tx += (mx - tx) * 0.12;
+  ty += (my - ty) * 0.12;
+  trail.style.transform = `translate(${tx - 18}px, ${ty - 18}px)`;
+  requestAnimationFrame(animateTrail);
+}
+animateTrail();
+
+document.querySelectorAll('a, button, .tilt-card').forEach(el => {
+  el.addEventListener('mouseenter', () => {
+    cursor.style.transform += ' scale(2)';
+    trail.style.opacity = '0.8';
+  });
+  el.addEventListener('mouseleave', () => {
+    trail.style.opacity = '0.5';
+  });
+});
+
+// ─── PROGRESS BAR ───
+const prog = document.getElementById('pageProgress');
+window.addEventListener('scroll', () => {
+  const pct = window.scrollY / (document.body.scrollHeight - window.innerHeight) * 100;
+  prog.style.width = pct + '%';
+});
+
+// ─── REVEAL ON SCROLL ───
+const revealEls = document.querySelectorAll('.reveal');
+const obs = new IntersectionObserver((entries) => {
+  entries.forEach(e => {
+    if (e.isIntersecting) { e.target.classList.add('visible'); }
+  });
+}, { threshold: 0.12 });
+revealEls.forEach(el => obs.observe(el));
+
+// ─── 3D TILT ───
+document.querySelectorAll('.tilt-card').forEach(card => {
+  card.addEventListener('mousemove', e => {
+    const r = card.getBoundingClientRect();
+    const x = (e.clientX - r.left) / r.width - 0.5;
+    const y = (e.clientY - r.top) / r.height - 0.5;
+    card.style.transform = `perspective(800px) rotateY(${x * 12}deg) rotateX(${-y * 12}deg) translateZ(8px)`;
+  });
+  card.addEventListener('mouseleave', () => {
+    card.style.transform = 'perspective(800px) rotateY(0) rotateX(0) translateZ(0)';
+  });
+});
+
+// ─── SKILL LEVEL ANIMATION ───
+const skillObs = new IntersectionObserver((entries) => {
+  entries.forEach(e => {
+    if (e.isIntersecting) {
+      e.target.querySelectorAll('.skill-level-fill').forEach(bar => {
+        const w = bar.style.width;
+        bar.style.width = '0';
+        setTimeout(() => { bar.style.width = w; }, 200);
+      });
+    }
+  });
+}, { threshold: 0.3 });
+document.querySelectorAll('.skills-grid').forEach(g => skillObs.observe(g));
+
+// ─── SMOOTH SCROLL ───
+document.querySelectorAll('a[href^="#"]').forEach(a => {
+  a.addEventListener('click', e => {
+    e.preventDefault();
+    const target = document.querySelector(a.getAttribute('href'));
+    if (target) target.scrollIntoView({ behavior: 'smooth' });
+  });
+});
+
+// ─── GLITCH TEXT on name hover ───
+const heroName = document.querySelector('.hero-name');
+if (heroName) {
+  heroName.addEventListener('mouseenter', () => {
+    heroName.style.letterSpacing = '4px';
+    setTimeout(() => heroName.style.letterSpacing = 'normal', 300);
+  });
+}
+
+// ─── COUNTER ANIMATION ───
+function animateCounter(el, target, duration = 1500) {
+  let start = 0;
+  const step = timestamp => {
+    if (!start) start = timestamp;
+    const progress = Math.min((timestamp - start) / duration, 1);
+    const current = Math.floor(progress * target);
+    el.textContent = current + (target > 10 ? '+' : '');
+    if (progress < 1) requestAnimationFrame(step);
+    else el.textContent = target + (el.dataset.suffix || '');
+  };
+  requestAnimationFrame(step);
+}
+const statObs = new IntersectionObserver(entries => {
+  entries.forEach(e => {
+    if (e.isIntersecting) {
+      const nums = e.target.querySelectorAll('.stat-num');
+      nums.forEach(n => {
+        const val = parseInt(n.textContent);
+        if (!isNaN(val)) animateCounter(n, val);
+      });
+      statObs.unobserve(e.target);
+    }
+  });
+}, { threshold: 0.5 });
+document.querySelectorAll('.about-stats').forEach(s => statObs.observe(s));
+</script>
+</body>
+</html>

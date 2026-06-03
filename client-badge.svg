@@ -1,0 +1,26 @@
+<svg width="120" height="120" viewBox="0 0 120 120" xmlns="http://www.w3.org/2000/svg">
+  <defs>
+    <filter id="glow">
+      <feGaussianBlur stdDeviation="2" result="coloredBlur"/>
+      <feMerge>
+        <feMergeNode in="coloredBlur"/>
+        <feMergeNode in="SourceGraphic"/>
+      </feMerge>
+    </filter>
+  </defs>
+  
+  <!-- Background with polygon clip -->
+  <path d="M10,10 L110,10 L110,110 L10,110 Z" fill="#111111" stroke="#c9a84c" stroke-width="1" filter="url(#glow)"/>
+  
+  <!-- Inner decorative elements -->
+  <path d="M20,20 L100,20 L100,100 L20,100 Z" fill="none" stroke="rgba(0,212,170,0.3)" stroke-width="1"/>
+  
+  <!-- Star icon -->
+  <polygon points="60,25 62,45 82,45 66,58 70,78 54,67 38,78 42,58 26,45 46,45 50,25" fill="#c9a84c"/>
+  
+  <!-- Client text -->
+  <text x="60" y="95" font-family="'Space Mono', monospace" font-size="8" letter-spacing="1" fill="#00d4aa" text-anchor="middle" text-transform="uppercase">Client</text>
+  
+  <!-- Project text -->
+  <text x="60" y="108" font-family="'Bebas Neue', sans-serif" font-size="10" letter-spacing="1.5" fill="#f0ede8" text-anchor="middle">Project</text>
+</svg>
